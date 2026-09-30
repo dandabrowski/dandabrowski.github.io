@@ -1,0 +1,157 @@
+/* Font: Cardo is a free stand-in for Bembo Book.
+   Once you buy a Bembo Book web license, add its @font-face here
+   and put "Bembo Book" first in --serif. */
+@import url("https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&display=swap");
+
+:root {
+  --serif: "Cardo", "Bembo Book", "Bembo", Garamond, Georgia, serif;
+  --sans: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --bg: #f2f1f0;
+  --text: #111111;
+  --heading: #111111;
+  --muted: #555550;
+  --rule: rgba(17, 17, 17, 0.25);
+  --tint: #eee8b9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a233a;
+    --text: #d9d9d9;
+    --heading: #eeeeee;
+    --muted: #a9b0b8;
+    --rule: rgba(217, 217, 217, 0.3);
+    --tint: #1f4879;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a233a;
+  --text: #d9d9d9;
+  --heading: #eeeeee;
+  --muted: #a9b0b8;
+  --rule: rgba(217, 217, 217, 0.3);
+  --tint: #1f4879;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 21px; }
+@media (max-width: 600px) { html { font-size: 18px; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Top bar: name left, nav right, in a small sans-serif like Fin's */
+header {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+}
+.name { color: var(--muted); text-decoration: none; }
+.name:hover { color: var(--text); }
+nav { display: flex; gap: 1.2rem; align-items: center; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--text); }
+nav a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: underline dotted;
+  text-underline-offset: 0.3em;
+}
+
+/* Theme dots: hollow = light, filled = dark; ring marks the active one */
+.theme-dots { display: flex; align-items: center; gap: 10px; margin-left: 0.3rem; }
+.theme-dots button {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--text);
+  background: none;
+  cursor: pointer;
+}
+.theme-dots button.filled { background: var(--text); }
+:root[data-theme="dark"] .theme-dots button { background: var(--text); }
+:root[data-theme="dark"] .theme-dots button.filled { background: none; }
+.theme-dots button.active::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--text);
+  border-radius: 50%;
+}
+
+main {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 3.5rem 1rem 2rem;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  color: var(--heading);
+}
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 3rem 0 1rem;
+  color: var(--heading);
+}
+p { margin: 0 0 1.4rem; }
+
+/* Links in the text colour, underlined */
+a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--heading); }
+
+ul.posts { list-style: none; padding: 0; margin: 0; }
+ul.posts li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+ul.posts .date {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+/* Footer fades into a tint, like Pax Machina's */
+footer.tinted {
+  height: 160px;
+  margin-top: 1rem;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--tint) 0%, transparent) 0%,
+    color-mix(in srgb, var(--tint) 20%, transparent) 40%,
+    color-mix(in srgb, var(--tint) 60%, transparent) 75%,
+    var(--tint) 100%);
+}
+
+/* Keep the tinted footer at the bottom of the window on short pages */
+body { display: flex; flex-direction: column; min-height: 100vh; }
+header, main { width: 100%; }
+main { flex: 1; }
